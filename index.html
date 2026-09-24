@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Special Surprise 💌</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #fce4ec;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+      overflow: hidden;
+    }
+
+    .card {
+      background: linear-gradient(180deg, #ffb6c1 0%, #ff8da1 100%);
+      width: 100%;
+      max-width: 380px;
+      border-radius: 30px;
+      padding: 30px 20px 40px;
+      box-shadow: 0 15px 35px rgba(255, 105, 180, 0.3);
+      text-align: center;
+      position: relative;
+    }
+
+    .cat-container {
+      width: 170px;
+      height: 170px;
+      margin: 0 auto 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .cat-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 8px 15px rgba(0,0,0,0.1));
+    }
+
+    .question-box {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 22px 18px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+      margin-bottom: 25px;
+      min-height: 110px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .subtitle {
+      font-size: 0.85rem;
+      color: #888;
+      font-style: italic;
+      margin-bottom: 6px;
+    }
+
+    .main-question {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #333;
+      line-height: 1.3;
+    }
+
+    .pleading-text {
+      font-size: 0.85rem;
+      color: #ff477e;
+      font-weight: 600;
+      margin-top: 6px;
+      min-height: 20px;
+      transition: all 0.2s ease;
+    }
+
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      min-height: 120px;
+      position: relative;
+    }
+
+    .btn {
+      font-weight: 700;
+      border-radius: 25px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease, font-size 0.2s ease, padding 0.2s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .btn-main {
+      background-color: #ff477e;
+      color: white;
+      padding: 12px 36px;
+      font-size: 1.1rem;
+      z-index: 10;
+    }
+
+    .btn-main:hover {
+      background-color: #ff2a66;
+    }
+
+    .btn-runaway {
+      background-color: #ffffff;
+      color: #777;
+      padding: 8px 20px;
+      font-size: 0.9rem;
+      position: absolute;
+      bottom: 0;
+      transition: top 0.2s ease, left 0.2s ease;
+    }
+
+    /* Prize Drop Animation */
+    .gift-box {
+      font-size: 80px;
+      cursor: pointer;
+      margin: 20px 0;
+      display: inline-block;
+      animation: dropDown 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    @keyframes dropDown {
+      0% { transform: translateY(-300px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Letter Unfold Animation */
+    .letter {
+      background: #fff;
+      border-radius: 15px;
+      padding: 20px;
+      color: #444;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      text-align: left;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      margin-top: 15px;
+      max-height: 200px;
+      overflow-y: auto;
+      animation: unfold 0.8s ease-in-out forwards;
+      border: 2px dashed #ff8da1;
+    }
+
+    @keyframes unfold {
+      0% { transform: scaleY(0); transform-origin: top; opacity: 0; }
+      100% { transform: scaleY(1); transform-origin: top; opacity: 1; }
+    }
+
+    .spiderwoman-text {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #ffffff;
+      text-shadow: 0 3px 6px rgba(0,0,0,0.2);
+      animation: popIn 0.6s ease forwards;
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .heart {
+      position: absolute;
+      color: #ff477e;
+      font-size: 20px;
+      animation: float 2.5s linear infinite;
+      opacity: 0;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) scale(0.8); opacity: 1; }
+      100% { transform: translateY(-100vh) scale(1.2); opacity: 0; }
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    
+    <!-- Step 1 & 2: Questions View -->
+    <div id="questionView">
+      <div class="cat-container">
+        <img id="catImg" src="https://cdni.iconscout.com/illustration/premium/thumb/cute-cat-holding-envelope-illustration-download-in-svg-png-gif-file-formats--letter-love-heart-romance-pack-animal-illustrations-4861213.png" alt="Cute Cat" />
+      </div>
+
+      <div class="question-box">
+        <div class="subtitle" id="subTitleText">There's something I want to ask...</div>
+        <div class="main-question" id="mainQuestionText">Do you really want to open this 😅 or kabardar no ko touch bhi kiya 😠</div>
+        <div class="pleading-text" id="pleadingText"></div>
+      </div>
+
+      <div class="button-container">
+        <button class="btn btn-main" id="mainBtn" onclick="handleMainClick()">Yes</button>
+        <button class="btn btn-runaway" id="runawayBtn" onmouseover="moveRunawayButton()" onclick="moveRunawayButton()">No</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Prize Announcement View -->
+    <div id="prizeAnnouncementView" class="hidden">
+      <div class="cat-container">
+        <img src="https://cdni.iconscout.com/illustration/premium/thumb/cat-holding-gift-illustration-download-in-svg-png-gif-file-formats--present-box-surprise-pack-animal-illustrations-4861220.png" alt="Cat with Gift" />
+      </div>
+      <div class="question-box">
+        <div class="main-question">🎉 Congrats! You won a prize!😠🎁</div>
+        <div class="subtitle" style="margin-top: 8px;">Would you like to open it?</div>
+      </div>
+      <button class="btn btn-main" onclick="showGiftDrop()">Open Gift 🎁</button>
+    </div>
+
+    <!-- Step 4 & 5: Gift Drop & Letter View -->
+    <div id="giftDropView" class="hidden">
+      <div id="giftContainer">
+        <div class="gift-box" onclick="openLetter()">🎁</div>
+        <div class="subtitle" id="giftHint">Tap the gift box to open!</div>
+      </div>
+
+      <div id="letterContainer" class="hidden">
+        <div class="letter">
+          <!-- WRITE YOUR LETTER CONTENT BELOW -->
+          Dear Barsa,<br><br>
+          Mere paas kuch hai hi ni kehne ko 😅 or wese ek baat toh hai mere paas kehne ko i mean tum nahi bataogi par i am sure ki tumne mujhe bahut baar maaf kiya matlab ek baar tab kiya tha jab tumko laga ki main har baat jhoot bolta hun 🫠 pata nahi kitna overthink karti ho tum par except this one tumne mujhe or bhi baar maaf kiya hai tumne nahi bataya par pata chal jata hai sahi bola na maine or mere paas kuch kehne ko nahi hai or ye banane mein mujhe nani yaad aa gyi toh agar tum hasi toh dekhna 😠😠 phir baat ni karunga kabhi or tumhare dosto ko bata dunga ki ye ladki bahut buri bacchi hai 🫠😆 bas itna hi kehna tha or main janta hun tum ye padhke has rahi ho jhoot mat bolna dikh raha hai mujhe ☺️🫠 koi yahi toh main bhi chahta tha .<br><br>
+          Your pakka wala or anjan dost,<br>
+          Mayank🫠😉 
+        </div>
+        <button class="btn btn-main" style="margin-top: 20px;" onclick="showFinalQuestion()">Done Reading ✨</button>
+      </div>
+    </div>
+
+    <!-- Step 6: Final Question (Yes Only) -->
+    <div id="finalQuestionView" class="hidden">
+      <div class="cat-container">
+        <img src="https://cdni.iconscout.com/illustration/premium/thumb/cat-in-love-illustration-download-in-svg-png-gif-file-formats--romantic-heart-valentine-pack-animal-illustrations-4861218.png" alt="Happy Cat" />
+      </div>
+      <div class="question-box">
+        <div class="main-question">Kya tumko ye accha laga or kya mujhe aise or banana chahiye 🫠</div>
+      </div>
+      <button class="btn btn-main" onclick="showSpiderwomanEnding()">Yes! 🥰</button>
+    </div>
+
+    <!-- Step 7: Final Spiderwoman Screen -->
+    <div id="spiderwomanView" class="hidden">
+      <div class="cat-container">
+        <img src="https://cdni.iconscout.com/illustration/premium/thumb/cute-cat-heart-eyes-illustration-download-in-svg-png-gif-file-formats--love-romantic-valentine-pack-animal-illustrations-4861215.png" alt="In Love Cat" />
+      </div>
+      <div class="spiderwoman-text">Thank you, Spiderwoman!🕷️🕸️💖</div>
+    </div>
+
+  </div>
+
+  <script>
+    let currentStep = 1;
+    let scaleFactor = 1;
+    let pleadingIndex = 0;
+
+    const pleadingMessages = [
+      "Sochlo beta! 🥺",
+      "Are kya kar rahi ho 💔",
+      "Don't do this to me! 😭",
+      "Just click the big button! ✨",
+      "Pretty please? 🎀",
+      "Aur koi rasta ni hai tumhara paas! 😜"
+    ];
+
+    function moveRunawayButton() {
+      const runawayBtn = document.getElementById('runawayBtn');
+      const mainBtn = document.getElementById('mainBtn');
+      const pleadingText = document.getElementById('pleadingText');
+
+      pleadingText.innerText = pleadingMessages[pleadingIndex % pleadingMessages.length];
+      pleadingIndex++;
+
+      scaleFactor += 0.15;
+      mainBtn.style.transform = `scale(${scaleFactor})`;
+
+      const x = Math.random() * (window.innerWidth - 120) - (window.innerWidth / 2 - 60);
+      const y = Math.random() * (window.innerHeight - 100) - (window.innerHeight / 2 - 50);
+
+      runawayBtn.style.position = 'fixed';
+      runawayBtn.style.left = `${Math.max(20, Math.min(window.innerWidth - 100, window.innerWidth / 2 + x))}px`;
+      runawayBtn.style.top = `${Math.max(20, Math.min(window.innerHeight - 50, window.innerHeight / 2 + y))}px`;
+    }
+
+    function resetRunawayButton() {
+      const runawayBtn = document.getElementById('runawayBtn');
+      const mainBtn = document.getElementById('mainBtn');
+      const pleadingText = document.getElementById('pleadingText');
+
+      scaleFactor = 1;
+      mainBtn.style.transform = `scale(${scaleFactor})`;
+      pleadingText.innerText = "";
+      
+      runawayBtn.style.position = 'absolute';
+      runawayBtn.style.left = '';
+      runawayBtn.style.top = '';
+      runawayBtn.style.bottom = '0';
+    }
+
+    function handleMainClick() {
+      if (currentStep === 1) {
+        currentStep = 2;
+        resetRunawayButton();
+        document.getElementById('subTitleText').innerText = "One more question...";
+        document.getElementById('mainQuestionText').innerText = "Do you hate me Barsa 🤔👻";
+        document.getElementById('mainBtn').innerText = "No! ❤️";
+        document.getElementById('runawayBtn').innerText = "Yes";
+      } else if (currentStep === 2) {
+        document.getElementById('questionView').classList.add('hidden');
+        document.getElementById('prizeAnnouncementView').classList.remove('hidden');
+      }
+    }
+
+    function showGiftDrop() {
+      document.getElementById('prizeAnnouncementView').classList.add('hidden');
+      document.getElementById('giftDropView').classList.remove('hidden');
+    }
+
+    function openLetter() {
+      document.getElementById('giftContainer').classList.add('hidden');
+      document.getElementById('letterContainer').classList.remove('hidden');
+    }
+
+    function showFinalQuestion() {
+      document.getElementById('giftDropView').classList.add('hidden');
+      document.getElementById('finalQuestionView').classList.remove('hidden');
+    }
+
+    function showSpiderwomanEnding() {
+      document.getElementById('finalQuestionView').classList.add('hidden');
+      document.getElementById('spiderwomanView').classList.remove('hidden');
+
+      for (let i = 0; i < 30; i++) {
+        setTimeout(createHeart, i * 80);
+      }
+    }
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.innerText = '💖';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.bottom = '0px';
+      heart.style.animationDuration = Math.random() * 2 + 1.5 + 's';
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 2500);
+    }
+  </script>
+
+</body>
+</html>
